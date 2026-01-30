@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Filter - Framed Layout</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            width: 700px;
+            margin: auto;
+            border: 2px solid black;
+            background-color: white;
+        }
+
+        .header {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .content {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 150px;
+            border-right: 2px solid black;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .main {
+            padding: 15px;
+            width: 100%;
+        }
+
+        .grid {
+            width: 100%;
+        }
+
+        .product {
+            border: 1px solid black;
+            padding: 10px;
+            margin: 5px;
+            width: 140px;
+            display: inline-block;
+            text-align: center;
+            background-color: #fff;
+        }
+
+        select {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h2>Mini Product Store</h2>
+    </div>
+
+    <div class="content">
+
+        <div class="sidebar">
+            <b>Filter</b><br><br>
+
+            Category:
+            <br>
+            <select onchange="filterProducts()" id="category">
+                <option value="all">All</option>
+                <option value="stationery">Stationery</option>
+                <option value="electronics">Electronics</option>
+            </select>
+        </div>
+
+        <div class="main">
+            <b>Products</b>
+            <br><br>
+
+            <div class="grid" id="productGrid">
+
+                <div class="product" data-type="stationery">
+                    <b>Pen</b><br>
+                    ₹10
+                </div>
+
+                <div class="product" data-type="stationery">
+                    <b>Notebook</b><br>
+                    ₹50
+                </div>
+
+                <div class="product" data-type="electronics">
+                    <b>Headphones</b><br>
+                    ₹499
+                </div>
+
+                <div class="product" data-type="electronics">
+                    <b>USB Cable</b><br>
+                    ₹150
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+function filterProducts() {
+    var choice = document.getElementById("category").value;
+    var products = document.getElementsByClassName("product");
+
+    for (var i = 0; i < products.length; i++) {
+        var type = products[i].getAttribute("data-type");
+
+        if (choice === "all" || type === choice) {
+            products[i].style.display = "inline-block";
+        } else {
+            products[i].style.display = "none";
+        }
+    }
+}
+</script>
+
+</body>
+</html>

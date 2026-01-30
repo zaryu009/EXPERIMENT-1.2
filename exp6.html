@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Drawing App with Colors & Shapes</title>
+</head>
+<body>
+<center>
+    <h2>Drawing Application</h2>
+    <table border="1" cellpadding="10">
+        <tr>
+            <td width="180" valign="top">
+                <b>Tools</b><br><br>
+                <b>Color:</b><br>
+                <select id="color">
+                    <option value="black">Black</option>
+                    <option value="red">Red</option>
+                    <option value="blue">Blue</option>
+                    <option value="green">Green</option>
+                </select>
+                <br><br>
+                <b>Shape:</b><br>
+                <select id="shape">
+                    <option value="free">Free Draw</option>
+                    <option value="rect">Rectangle</option>
+                    <option value="circle">Circle</option>
+                </select>
+                <br><br>
+                <button onclick="clearCanvas()">Clear</button>
+            </td>
+            <td>
+                <canvas id="canvas" width="600" height="400" style="border:1px solid black;"></canvas>
+            </td>
+        </tr>
+    </table>
+</center>
+<script>
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var drawing = false;
+var startX, startY;
+function getColor() {
+    return document.getElementById("color").value;
+}
+function getShape() {
+    return document.getElementById("shape").value;
+}
+canvas.onmousedown = function(e) {
+    drawing = true;
+    startX = e.offsetX;
+    startY = e.offsetY;
+    if(getShape() === "free") {
+        ctx.beginPath();
+        ctx.moveTo(startX, startY);
+    }
+};
+canvas.onmouseup = function(e) {
+    if (!drawing) return;
+    drawing = false;
+    var shape = getShape();
+    var endX = e.offsetX;
+    var endY = e.offsetY;
+    var color = getColor();
+    ctx.strokeStyle = color;
+    if(shape === "rect") {
+        ctx.strokeRect(startX, startY, endX - startX, endY - startY);
+    } else if(shape === "circle") {
+        var radius = Math.sqrt(Math.pow(endX-startX,2) + Math.pow(endY-startY,2));
+        ctx.beginPath();
+        ctx.arc(startX, startY, radius, 0, 2*Math.PI);
+        ctx.stroke();
+    }
+};
+canvas.onmousemove = function(e) {
+    if (!drawing) return;
+    if(getShape() === "free") {
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = getColor();
+        ctx.lineTo(e.offsetX, e.offsetY);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(e.offsetX, e.offsetY);
+    }
+};
+function clearCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Character Counter - Max 90 Words</title>
+</head>
+
+<body>
+
+    <center>
+        <h2>Live Character Counter (Max 90 Words)</h2>
+
+        <textarea id="textBox" rows="6" cols="40" onkeyup="countText()"></textarea>
+
+        <br><br>
+
+        <b>Total Characters:</b> <span id="totalChar">0</span><br>
+        <b>Total Spaces:</b> <span id="spaceCount">0</span><br>
+        <b>Characters (Without Spaces):</b> <span id="charOnly">0</span><br>
+        <b>Status:</b> <span id="statusMsg" style="color:red"></span>
+    </center>
+
+    <script>
+        function countText() {
+            var textBox = document.getElementById("textBox");
+            var text = textBox.value;
+
+            var words = text.trim().split(/\s+/).filter(word => word.length > 0);
+            
+            if (words.length > 90) {
+                text = words.slice(0, 90).join(" ");
+                textBox.value = text;
+                document.getElementById("statusMsg").innerText = "Maximum 90 words allowed!";
+            } else {
+                document.getElementById("statusMsg").innerText = "";
+            }
+
+            var total = text.length;
+            var spaces = (text.match(/ /g) || []).length;
+            var charactersOnly = total - spaces;
+
+            document.getElementById("totalChar").innerText = total;
+            document.getElementById("spaceCount").innerText = spaces;
+            document.getElementById("charOnly").innerText = charactersOnly;
+        }
+    </script>
+
+</body>
+</html>

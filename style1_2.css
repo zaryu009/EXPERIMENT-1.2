@@ -1,0 +1,142 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Sky sunny/rainy */
+.sky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  z-index: -4;
+  transition: background 1s ease;
+}
+.sky.sunny { background: linear-gradient(to bottom, #87CEEB, #b2ebf2); }
+.sky.rainy { background: linear-gradient(to bottom, #4a4a4a, #2f2f2f); }
+
+/* Sun */
+.sun {
+  position: fixed;
+  top: 50px;
+  right: 100px;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, #FFD700, #FFA500);
+  border-radius: 50%;
+  box-shadow: 0 0 60px rgba(255, 215, 0, 0.5);
+  z-index: 10;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+
+/* Sea waves */
+.sea {
+  position: fixed;
+  bottom: 20%;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  z-index: -2;
+}
+.wave path {
+  animation: waveMove 10s linear infinite;
+}
+@keyframes waveMove {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(-50px); }
+  100% { transform: translateX(0); }
+}
+
+/* Beach */
+.beach {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 20%;
+  background: #f4e1a0;
+  z-index: -1;
+}
+
+/* Tree */
+.tree {
+  position: fixed;
+  bottom: 20%;
+  left: 50px;
+  width: 100px;
+  z-index: 1;
+  transform-origin: bottom center;
+  animation: sway 2s ease-in-out infinite alternate;
+}
+@keyframes sway {
+  0% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+  100% { transform: rotate(-5deg); }
+}
+
+/* Frog initially hidden */
+.frog {
+  position: fixed;
+  bottom: 35%;
+  left: 200px;
+  z-index: 2;
+  display: none;
+  transform: translateY(10px);
+  animation: frogPeek 1.5s ease-in-out infinite alternate;
+}
+@keyframes frogPeek {
+  0% { transform: translateY(10px); }
+  50% { transform: translateY(0px); }
+  100% { transform: translateY(10px); }
+}
+
+/* Header */
+header {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: #ffffff;
+  text-shadow: 1px 1px 5px rgba(0,0,0,0.6);
+  z-index: 2;
+}
+header h1 { font-size: 2.5rem; }
+header p { font-size: 1rem; margin-top: 5px; }
+
+/* Cards */
+.cards {
+  position: fixed;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 30px;
+  z-index: 2;
+}
+.card {
+  display: block;
+  padding: 20px 30px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 15px;
+  border: 1px solid rgba(255,255,255,0.3);
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+}
+.card:hover {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* Canvas pointer fix */
+canvas {
+  pointer-events: none;
+}
